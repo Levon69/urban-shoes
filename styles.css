@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image:url(back3.jpg) ;
+}
+
+header {
+    background-color: #172018;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    font-size: 20px; 
+    font-family:fantasy ;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.shoe-item {
+    display: inline-block;
+    width: 200px;
+    margin: 15px;
+    vertical-align: top;
+    text-align: center;
+    background-color: #a47575;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.shoe-item img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.shoe-item h3 {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.shoe-item button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.shoe-item button:hover {
+    background-color: #555;
+}
+
+#productImage {
+    width: 100%;
+    height: auto;
+}
+
+#prevImage, #nextImage {
+    cursor: pointer;
+    color: #333;
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+#prevImage:hover, #nextImage:hover {
+    color: #555;
+}
+
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 20px auto;
+}
+
+#registerForm input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+#registerForm button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#registerForm button:hover {
+    background-color: #555;
+}
+
+a{color:rgb(185, 186, 186) ;
+  font-family: italic ; 
+
+}
