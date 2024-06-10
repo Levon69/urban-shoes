@@ -1,92 +1,145 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const womenShoes = [
-        { id: 1, name: 'Chuck Taylor Canvas', images: ['images/women/women1_1.jpg', 'images/women/women1_2.jpg', 'images/women/women1_3.jpg', 'images/women/women1_4.jpg'] },
-        { id: 2, name: 'Air VaporMax Plus', images: ['images/women/women2_1.jpg', 'images/women/women2_2.jpg', 'images/women/women2_3.jpg', 'images/women/women2_4.jpg'] },
-        { id: 3, name: 'Air Max 90 Futura', images: ['images/women/women3_1.jpg', 'images/women/women3_2.jpg', 'images/women/women3_3.jpg', 'images/women/women3_4.jpg'] }
-    ];
+document.addEventListener('DOMContentLoaded', () => {
+    const cartIcon = document.getElementById('cart-icon');
+    const favoritesIcon = document.getElementById('favorites-icon');
+    const loginIcon = document.getElementById('login-icon');
+    const cartPopup = document.getElementById('cart-popup');
+    const favoritesPopup = document.getElementById('favorites-popup');
+    const loginPopup = document.getElementById('login-popup');
+    const likeButtons = document.querySelectorAll('.like-button');
+    const cart = [];
+    const favorites = [];
 
-    const menShoes = [
-        { id: 1, name: 'KD 17', images: ['images/men/men1_1.jpg', 'images/men/men1_2.jpg', 'images/men/men1_3.jpg', 'images/men/men1_4.jpg'] },
-        { id: 2, name: 'Ja 1', images: ['images/men/men2_1.jpg', 'images/men/men2_2.jpg', 'images/men/men2_3.jpg', 'images/men/men2_4.jpg'] },
-        { id: 3, name: 'Air VaporMax ', images: ['images/men/men3_1.jpg', 'images/men/men3_2.jpg', 'images/men/men3_3.jpg', 'images/men/men3_4.jpg'] }
-    ];
-
-    const likedItems = [];
-    const cartItems = [];
-    const users = [];
-
-    function renderShoes(shoes, containerId) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-        shoes.forEach(shoe => {
-            const shoeElement = document.createElement('div');
-            shoeElement.className = 'shoe-item';
-            shoeElement.innerHTML = `
-                <img src="${shoe.images[0]}" alt="${shoe.name}">
-                <h3>${shoe.name}</h3>
-                <button onclick="location.href='product.html?id=${shoe.id}&type=${containerId}'">Посмотреть</button>
-            `;
-            container.appendChild(shoeElement);
-        });
-    }
-
-    window.likeItem = function(id, containerId) {
-        const shoes = containerId === 'womenShoesGrid' ? womenShoes : menShoes;
-        const item = shoes.find(shoe => shoe.id === id);
-        if (!likedItems.includes(item)) {
-            likedItems.push(item);
-        }
-        renderLikedItems();
-    }
-
-    window.addToCart = function(id, containerId) {
-        const shoes = containerId === 'womenShoesGrid' ? womenShoes : menShoes;
-        const item = shoes.find(shoe => shoe.id === id);
-        if (!cartItems.includes(item)) {
-            cartItems.push(item);
-        }
-        renderCartItems();
-    }
-
-    function renderLikedItems() {
-        const container = document.getElementById('likedGrid');
-        container.innerHTML = '';
-        likedItems.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.className = 'shoe-item';
-            itemElement.innerHTML = `
-                <img src="${item.images[0]}" alt="${item.name}">
-                <h3>${item.name}</h3>
-            `;
-            container.appendChild(itemElement);
-        });
-    }
-
-    function renderCartItems() {
-        const container = document.getElementById('cartGrid');
-        container.innerHTML = '';
-        cartItems.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.className = 'shoe-item';
-            itemElement.innerHTML = `
-                <img src="${item.images[0]}" alt="${item.name}">
-                <h3>${item.name}</h3>
-            `;
-            container.appendChild(itemElement);
-        });
-    }
-
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const user = { username, email, password };
-        users.push(user);
-        alert('Регистрация прошла успешно!');
-        this.reset();
+    cartIcon.addEventListener('click', () => {
+        cartPopup.classList.toggle('visible');
+        updateCartPopup();
     });
 
-    renderShoes(womenShoes, 'womenShoesGrid');
-    renderShoes(menShoes, 'menShoesGrid');
+    favoritesIcon.addEventListener('click', () => {
+        favoritesPopup.classList.toggle('visible');
+        updateFavoritesPopup();
+    });
+
+    loginIcon.addEventListener('click', () => {
+        loginPopup.classList.toggle('visible');
+    });
+
+    likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const shoeItem = button.closest('.shoe-item');
+            const shoeId = shoeItem.getAttribute('data-id');
+            if (!favorites.includes(shoeId)) {
+                favorites.push(shoeId);
+                button.classList.add('liked');
+            } else {
+                const index = favorites.indexOf(shoeId);
+                favorites.splice(index, 1);
+                button.classList.remove('liked');
+            }
+            document.getElementById('favorites-count').textContent = favorites.length;
+        });
+    });
+
+    function updateCartPopup() {
+        const cartList = document.querySelector('.cart-list');
+        cartList.innerHTML = '';
+        cart.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.textContent = `Товар ${item}`;
+            cartList.appendChild(listItem);
+        });
+    }
+
+    function updateFavoritesPopup() {
+        const favoritesList = document.querySelector('.favorites-list');
+        favoritesList.innerHTML = '';
+        favorites.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.textContent = `Товар ${item}`;
+            favoritesList.appendChild(listItem);
+        });
+    }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const productId = new URLSearchParams(window.location.search).get('id');
+    const productData = getProductDataById(productId);
+
+    if (productData) {
+        document.getElementById('main-image').src = `images/${productData.mainImage}`;
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        thumbnails[0].src = `images/${productData.thumbnailImages[0]}`;
+        thumbnails[1].src = `images/${productData.thumbnailImages[1]}`;
+        thumbnails[2].src = `images/${productData.thumbnailImages[2]}`;
+        thumbnails[3].src = `images/${productData.thumbnailImages[3]}`;
+
+        document.getElementById('product-title').textContent = productData.title;
+        document.getElementById('product-description').textContent = productData.description;
+        document.getElementById('product-price').textContent = `Цена: ${productData.price}`;
+
+        const addToCartButton = document.getElementById('add-to-cart-button');
+        addToCartButton.addEventListener('click', () => addToCart(productId));
+    }
+
+    function getProductDataById(id) {
+        const products = [
+            {
+                id: '1',
+                title: 'Женская обувь 1',
+                description: 'Описание женской обуви 1',
+                price: '1000₽',
+                mainImage: 'shoe1.jpg',
+                thumbnailImages: ['shoe1-1.jpg', 'shoe1-2.jpg', 'shoe1-3.jpg', 'shoe1-4.jpg']
+            },
+            {
+                id: '2',
+                title: 'Женская обувь 2',
+                description: 'Описание женской обуви 2',
+                price: '1200₽',
+                mainImage: 'shoe2.jpg',
+                thumbnailImages: ['shoe2-1.jpg', 'shoe2-2.jpg', 'shoe2-3.jpg', 'shoe2-4.jpg']
+            },
+            {
+                id: '3',
+                title: 'Женская обувь 3',
+                description: 'Описание женской обуви 3',
+                price: '1300₽',
+                mainImage: 'shoe3.jpg',
+                thumbnailImages: ['shoe3-1.jpg', 'shoe3-2.jpg', 'shoe3-3.jpg', 'shoe3-4.jpg']
+            },
+            {
+                id: '4',
+                title: 'Мужская обувь 1',
+                description: 'Описание мужской обуви 1',
+                price: '1400₽',
+                mainImage: 'shoe4.jpg',
+                thumbnailImages: ['shoe4-1.jpg', 'shoe4-2.jpg', 'shoe4-3.jpg', 'shoe4-4.jpg']
+            },
+            {
+                id: '5',
+                title: 'Мужская обувь 2',
+                description: 'Описание мужской обуви 2',
+                price: '1500₽',
+                mainImage: 'shoe5.jpg',
+                thumbnailImages: ['shoe5-1.jpg', 'shoe5-2.jpg', 'shoe5-3.jpg', 'shoe5-4.jpg']
+            },
+            {
+                id: '6',
+                title: 'Мужская обувь 3',
+                description: 'Описание мужской обуви 3',
+                price: '1600₽',
+                mainImage: 'shoe6.jpg',
+                thumbnailImages: ['shoe6-1.jpg', 'shoe6-2.jpg', 'shoe6-3.jpg', 'shoe6-4.jpg']
+            }
+        ];
+
+        return products.find(product => product.id === id);
+    }
+
+    function addToCart(productId) {
+        const size = document.getElementById('size').value;
+        console.log(`Product ID: ${productId}, Size: ${size}`);
+        alert(`Тoвар добавлен в корзину: ID ${productId}, Размер ${size}`);
+    }
+});
+ 
+ 
