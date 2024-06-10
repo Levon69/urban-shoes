@@ -3,21 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Товар</title>
+    <title>Детали Обуви</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1 id="productName">Название товара</h1>
-    </header>
-    <div class="container">
-        <img id="productImage" src="" alt="Изображение товара">
-        <div>
-            <span id="prevImage">&lt;</span>
-            <span id="nextImage">&gt;</span>
+        <h1>MEN</h1>
+        <div class="icons">
+            <div class="icon" id="login-icon">
+                <img src="images/login-icon.png" alt="Войти">
+                <span>Войти</span>
+            </div>
+            <div class="icon" id="favorites-icon">
+                <img src="images/heart-icon.png" alt="Избранное">
+                <span class="badge" id="favorites-count">0</span>
+            </div>
+            <div class="icon" id="cart-icon">
+                <img src="images/cart-icon.png" alt="Корзина">
+                <span class="badge" id="cart-count">0</span>
+            </div>
         </div>
-        <button id="likeButton">Понравилось</button>
-        <button id="cartButton">В корзину</button>
+    </header>
+    <main class="product-details">
+        <div class="thumbnail-images">
+            <img class="thumbnail" src="images/shoe1-1.jpg" alt="Thumbnail 1">
+            <img class="thumbnail" src="images/shoe1-2.jpg" alt="Thumbnail 2">
+            <img class="thumbnail" src="images/shoe1-3.jpg" alt="Thumbnail 3">
+            <img class="thumbnail" src="images/shoe1-4.jpg" alt="Thumbnail 4">
+        </div>
+        <div class="product-images">
+            <img id="main-image" src="images/shoe1-main.jpg" alt="Main Image">
+            <div id="main-image-container">
+                <button id="prev-button">←</button>
+                <button id="next-button">→</button>
+            </div>
+        </div>
+        <div class="product-info">
+            <h2 id="product-title">Название товара</h2>
+            <p id="product-description">Описание товара</p>
+            <p id="product-price">Цена: 1000₽</p>
+            <div class="size-select">
+                <label for="size">Размер:</label>
+                <select id="size" name="size">
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                </select>
+            </div>
+            <button id="add-to-cart-button">Добавить в корзину</button>
+        </div>
+    </main>
+    <div class="popup" id="favorites-popup">
+        <h3>Избранное</h3>
+        <div class="favorites-list"></div>
+    </div>
+    <div class="popup" id="cart-popup">
+        <h3>Корзина</h3>
+        <div class="cart-list"></div>
+        <button id="checkout-button">Перейти к оформлению</button>
+    </div>
+    <div class="popup" id="login-popup">
+        <h3>Войти</h3>
+        <form>
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Войти</button>
+        </form>
     </div>
     <script src="product.js"></script>
 </body>
