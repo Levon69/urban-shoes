@@ -1,57 +1,100 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urban Steps </title>
+    <title>Магазин Обуви</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body> 
     <header>
-        <div class="logo">Urban Steps</div>
-        <nav>
-            <a href="#women-shoes">Женская обувь</a>
-            <a href="#men-shoes">Мужская обувь</a>
-            <a href="#liked">Понравившиеся</a>
-            <a href="#cart">Корзина</a>
-            <a href="#register">Регистрация</a>
-        </nav>
+        <h1>Магазин Обуви</h1>
+        <div class="icons">
+            <div class="icon" id="login-icon">
+                <img src="images/login-icon.png" alt="Войти">
+                <span>Войти</span>
+            </div>
+            <div class="icon" id="favorites-icon">
+                <img src="images/heart-icon.png" alt="Избранное">
+                <span class="badge" id="favorites-count">0</span>
+            </div>
+            <div class="icon" id="cart-icon">
+                <img src="images/cart-icon.png" alt="Корзина">
+                <span class="badge" id="cart-count">0</span>
+            </div>
+        </div>
     </header>
-
-    <section id="women-shoes" class="shoes-section">
-        <h2>Женская обувь</h2>
-        <div class="shoes-grid" id="womenShoesGrid"></div>
-    </section>
-
-    <section id="men-shoes" class="shoes-section">
-        <h2>Мужская обувь</h2>
-        <div class="shoes-grid" id="menShoesGrid"></div>
-    </section>
-
-    <section id="liked" class="liked-section">
-        <h2>Понравившиеся</h2>
-        <div class="liked-grid" id="likedGrid"></div>
-    </section>
-
-    <section id="cart" class="cart-section">
-        <h2>Корзина</h2>
-        <div class="cart-grid" id="cartGrid"></div>
-    </section>
-
-    <section id="register" class="register-section">
-        <h2>Регистрация</h2>
-        <form id="registerForm">
+    <main>
+        <section class="shoes" id="women-shoes">
+            <h2 class="ser">MEN</h2>
+            <div class="shoe-item" data-id="1">
+                <img src="images/shoe1.jpg" alt="Женская обувь 1">
+                <p class="grac">KD 17"Sunrise"</p>
+                <p class="gin">150$</p>
+                <button class="like-button"><img src="images/heart-icon.png" alt="Like"></button>
+                <button class="view-button" onclick="location.href='product.html?id=1'">Посмотреть →</button>
+            </div>
+            <div class="shoe-item" data-id="2">
+                <img src="images/shoe2.jpg" alt="Женская обувь 2">
+                <p class="grac">JA 1</p>
+                <p class="gin">120$</p>
+                <button class="like-button"><img src="images/heart-icon.png" alt="Like"></button>
+                <button class="view-button" onclick="location.href='product.html?id=2'">Посмотреть →</button>
+            </div>
+            <div class="shoe-item" data-id="3">
+                <img src="images/shoe3.jpg" alt="Женская обувь 3">
+                <p class="grac">Air VaporMax</p>
+                <p class="gin">210$</p>
+                <button class="like-button"><img src="images/heart-icon.png" alt="Like"></button>
+                <button class="view-button" onclick="location.href='product.html?id=3'">Посмотреть →</button>    
+                        </div>
+        </section>
+        <section class="shoes" id="men-shoes">
+            <h2 class="ser">WOMEN</h2>
+            <div class="shoe-item" data-id="4">
+                <img src="images/shoe4.jpg" alt="Мужская обувь 1">
+                <p class="grac">Chuck Taylor </p>
+                <p class="gin">120$</p>
+                <button class="like-button"><img src="images/heart-icon.png" alt="Like"></button>
+                <button class="view-button" onclick="location.href='product.html?id=4'">Посмотреть →</button>
+            </div>
+            <div class="shoe-item" data-id="5">
+                <img src="images/shoe5.jpg" alt="Мужская обувь 2">
+                <p class="grac">Air VaporPlus</p>
+                <p class="gin">210$</p>
+                <button class="like-button"><img src="images/heart-icon.png" alt="Like"></button>
+                <button class="view-button" onclick="location.href='product.html?id=5'">Посмотреть →</button>
+            </div>
+            <div class="shoe-item" data-id="6">
+                <img src="images/shoe6.jpg" alt="Мужская обувь 3">
+                <p class="grac">Air 90 Futura</p>
+                <p class="gin">180$</p>
+                <button class="like-button"><img src="images/heart-icon.png" alt="Like"></button>
+                <button class="view-button" onclick="location.href='product.html?id=6'">Посмотреть →</button>
+            </div>
+        </section>
+    </main>
+   <a href="product.html? id=special" data-id="special">
+    <img src="reklamy.jpg",alt=reklam class="reklam">
+   </a> 
+    <div class="popup" id="favorites-popup">
+        <h3>Избранное</h3>
+        <div class="favorites-list"></div>
+    </div>
+    <div class="popup" id="cart-popup">
+        <h3>Корзина</h3>
+        <div class="cart-list"></div>
+    </div>
+    <div class="popup" id="login-popup">
+        <h3>Войти</h3>
+        <form>
             <label for="username">Имя пользователя:</label>
             <input type="text" id="username" name="username" required>
-            <label for="email">Электронная почта:</label>
-            <input type="email" id="email" name="email" required>
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required>
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit">Войти</button>
         </form>
-    </section>
-
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
